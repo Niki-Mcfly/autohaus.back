@@ -1,12 +1,14 @@
 import express from "express";
+import autos from "./routes/autos.js"
 
 const app = express();
 const port = process.env.PORT || 5001;
 
 app.use(express.json());
+app.use("/autos", autos);
 
 app.get("/", (req, res) =>
-    res,send(
+    res.send(
         "<h1>Jetzt endlich mit echten Daten aus einer Postgresql Datenbank!!</h1>"
      )
 );
