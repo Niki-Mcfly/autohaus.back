@@ -10,7 +10,7 @@ export const getAllAutos = (req, res) => {
 export const getSingleAuto = (req, res) => {
    const id = req.params.id;
     pool
-         .query(`select * from Auto WHERE id=${id}`)
+         .query("select * from Auto WHERE id=$1", [id])
          .then((data) => res.json(data.rows[0]))
          .catch((err) => console.log(err));
 };
