@@ -1,4 +1,3 @@
-import res from "express/lib/response";
 import pool from "../db/pg.js"
 
 //Alle Autos aus Auto holen
@@ -26,7 +25,16 @@ export const getSingleAuto = (req, res) => {
 
 //Zu Auto hinzufügen
 export const createAuto = (req, res) => {
-    console.log("Contrtoller wird aufgerufen");    
+    const { name, featureimage, description } = req.body;
+    pool
+        .query(
+        "INSERT INTO Auto (name, featureimage, description) VALUES ($1, $2, $3) RETURNING *",
+        [name, featureimage, description]
+    )
+    .then((data) => {
+            res.status(201).json(data.rows[0]);
+    })
+    .catch((err) => console.log(err));
 };
 
 //Auto aus Auto Löschen
@@ -44,5 +52,19 @@ export const deleteAuto = (req,res) => {
 };
 
 export const updateAuto = (req, res) => {
-    console.log("Hier soll ein Auto aktualisiert werden!")
+    const id = req.params.id;
+    const { name, featureimage, description } = req.body;
+    pool
+    .query(
+    "UPDATE Auto SET name=$1, featureimage=$2, description=$3 WHERE id=$4",
+    [name, featureimage, description, id,]
+    )
+    .then((data) => { 
+        if (data.rowCount === 0) {
+            res.status(404).send("Auto mit der ID existiert nicht!");
+        } else {
+        res.status(200).json(data.rows[0]);
+    }
+})
+    .catch((err) => res.status(500).json(err));
 };
