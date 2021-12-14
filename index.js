@@ -1,3 +1,4 @@
+import "dotenv/config.js";
 import express from "express";
 import autos from "./routes/autos.js"
 

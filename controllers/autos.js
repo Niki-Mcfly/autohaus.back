@@ -1,7 +1,16 @@
-export const getAllAutos = () => {
-    //datenbank abfragen: select * from autos
+import pool from "../db/pg.js"
+
+export const getAllAutos = (req, res) => {
+     pool
+        .query("select * from Auto")
+        .then((data) => res.json({ autos: data.rows}))
+        .catch((err) => console.log(err));
 };
 
-export const getSingleAuto = () => {
-    //datenbank abfragen: select * from autos where id=xy
+export const getSingleAuto = (req, res) => {
+   const id = req.params.id;
+    pool
+         .query(`select * from Auto WHERE id=${id}`)
+         .then((data) => res.json(data.rows[0]))
+         .catch((err) => console.log(err));
 };
