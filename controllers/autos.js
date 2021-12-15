@@ -3,7 +3,7 @@ import pool from "../db/pg.js"
 //Alle Autos aus Auto holen
 export const getAllAutos = (req, res) => {
      pool
-        .query("select * from 'Auto'")
+        .query("select * from Auto")
         .then((data) => res.json({ autos: data.rows}))
         .catch((err) => console.log(err));
 };
