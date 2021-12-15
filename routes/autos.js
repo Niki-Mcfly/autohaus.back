@@ -3,17 +3,18 @@ import { createAuto, deleteAuto, getAllAutos, getSingleAuto, updateAuto } from "
 const autos = express.Router();
 
 //Um alle Autos zu bekommen 
-autos.route("/").get(getAllAutos)
+autos.route("/").get(getAllAutos).post(createAuto)
 
 //Um ein Auto hinzuzufügen
-autos.route("/").post(createAuto)
+//autos.route("/").post(createAuto)
 
 //Um ein einzelnes Auto zu bekommen 
-autos.route("/:id").get(getSingleAuto)
+autos.route("/:id").get(getSingleAuto).delete(deleteAuto).put(updateAuto)
 
 //Um ein Auto zu Löschen
-autos.route("/:id").delete(deleteAuto)
+//autos.route("/:id").delete(deleteAuto)
 
 //Um ein Auto zu Updaten
-autos.route("/:id").put(updateAuto)
+//autos.route("/:id").put(updateAuto)
+
 export default autos;
