@@ -51,6 +51,7 @@ export const deleteAuto = (req,res) => {
     .catch((err) => res.status(500).json(err));
 };
 
+//Auto update verändern
 export const updateAuto = (req, res) => {
     const id = req.params.id;
     const { name, featureimage, description } = req.body;
